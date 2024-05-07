@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Bairros</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #003366;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        header .logo {
+            width: 150px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        main {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* Distribui os bairros em 5 colunas */
+            gap: 20px; /* Espaçamento entre os bairros */
+            justify-items: center; /* Centraliza os bairros horizontalmente */
+            align-items: center; /* Centraliza os bairros verticalmente */
+        }
+
+        .bairro-item {
+            width: 200px;
+            height: 150px;
+            background-color: #ccc; /* Cor de fundo padrão */
+            color: #333;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .bairro-item:hover {
+            background-color: #66cdaa; /* Cor de fundo ao passar o mouse */
+        }
+        
+        /* Cores diferentes para cada bairro */
+        .bairro-item.maracana { background-color: #ffcc99; }
+        .bairro-item.araguaina-sul-2 { background-color: #99a2ff; }
+        .bairro-item.setor-lula { background-color: #ffb3b3; }
+        .bairro-item.lago-azul { background-color: #b3b3ff; }
+        .bairro-item.lago-azul-4 { background-color: #ffccff; }
+        .bairro-item.vila-ribeiro { background-color: #99ffcc; }
+        .bairro-item.costa-esmeralda { background-color: #ff9966; }
+        .bairro-item.construindo-sonho { background-color: #66ccff; }
+        .bairro-item.sonhos-dourados { background-color: #ff9999; }
+        .bairro-item.centro { background-color: #99ff99; }
+        .bairro-item.sao-joao { background-color: #ffcc66; }
+        .bairro-item.ceu-azul { background-color: #cc99ff; }
+        .bairro-item.entroncamento { background-color: #66ff99; }
+        .bairro-item.novo-araguaina { background-color: #ff6666; }
+        .bairro-item.setor-brasil { background-color: #66ffff; }
+        .bairro-item.coimbra { background-color: #ff66cc; }
+        .bairro-item.patrocinio { background-color: #ff66cc; }
+        /* Novas cores para os novos bairros */
+        .bairro-item.planalto { background-color: #ffcc00; }
+        .bairro-item.vila-norte { background-color: #cc66ff; }
+        .bairro-item.ipe { background-color: #66ffcc; }
+        .bairro-item.jardim-paulista { background-color: #ff99ff; }
+        .bairro-item.barra-da-grota { background-color: #ccff66; }
+        .bairro-item.morada-do-sol { background-color: #ff6600; }
+        .bairro-item.vila-couto { background-color: #3399ff; }
+        .bairro-item.itaipu { background-color: #ff3399; }
+        .bairro-item.setor-tocantins { background-color: #33cc33; }
+    </style>
+</head>
+<body>
+<header>
+    <img src="LOGO 2.png" alt="VisitaCidadão" class="logo">
+</header>
+
+<main>
+    <!-- Bairros existentes -->
+    <div class="bairro-item maracana" onclick="redirectToExcel('MARACANÃ')">MARACANÃ</div>
+    <div class="bairro-item araguaina-sul-2" onclick="redirectToExcel('ARAGUAÍNA SUL 2')">ARAGUAÍNA SUL 2</div>
+    <div class="bairro-item setor-lula" onclick="redirectToExcel('SETOR LULA')">SETOR LULA</div>
+    <div class="bairro-item lago-azul" onclick="redirectToExcel('LAGO AZUL')">LAGO AZUL</div>
+    <div class="bairro-item lago-azul-4" onclick="redirectToExcel('LAGO AZUL 4')">LAGO AZUL 4</div>
+    <div class="bairro-item vila-ribeiro" onclick="redirectToExcel('VILA RIBEIRO')">VILA RIBEIRO</div>
+    <div class="bairro-item costa-esmeralda" onclick="redirectToExcel('COSTA ESMERALDA')">COSTA ESMERALDA</div>
+    <div class="bairro-item construindo-sonho" onclick="redirectToExcel('C. SONHO')">C. SONHO</div>
+    <div class="bairro-item sonhos-dourados" onclick="redirectToExcel('SONHOS DOURADOS')">SONHOS DOURADOS</div>
+    <div class="bairro-item centro" onclick="redirectToExcel('CENTRO')">CENTRO</div>
+    <div class="bairro-item sao-joao" onclick="redirectToExcel('SÃO JOÃO')">SÃO JOÃO</div>
+    <div class="bairro-item ceu-azul" onclick="redirectToExcel('CÉU AZUL')">CÉU AZUL</div>
+    <div class="bairro-item entroncamento" onclick="redirectToExcel('ENTRONCAMENTO')">ENTRONCAMENTO</div>
+    <div class="bairro-item novo-araguaina" onclick="redirectToExcel('NOVO ARAGUAÍNA')">NOVO ARAGUAÍNA</div>
+    <div class="bairro-item setor-brasil" onclick="redirectToExcel('SETOR BRASIL')">SETOR BRASIL</div>
+    <div class="bairro-item coimbra" onclick="redirectToExcel('COIMBRA')">COIMBRA</div>
+    <div class="bairro-item patrocinio" onclick="redirectToExcel('PATROCÍNIO')">PATROCÍNIO</div>
+
+    <!-- Novos bairros adicionados -->
+    <div class="bairro-item planalto" onclick="redirectToExcel('PLANALTO')">PLANALTO</div>
+    <div class="bairro-item vila-norte" onclick="redirectToExcel('VILA NORTE')">VILA NORTE</div>
+    <div class="bairro-item ipe" onclick="redirectToExcel('IPÊ')">IPÊ</div>
+    <div class="bairro-item jardim-paulista" onclick="redirectToExcel('JARDIM PAULISTA')">JARDIM PAULISTA</div>
+    <div class="bairro-item barra-da-grota" onclick="redirectToExcel('BARRA DA GROTA')">BARRA DA GROTA</div>
+    <div class="bairro-item morada-do-sol" onclick="redirectToExcel('MORADA DO SOL')">MORADA DO SOL</div>
+    <div class="bairro-item vila-couto" onclick="redirectToExcel('VILA COUTO')">VILA COUTO</div>
+    <div class="bairro-item itaipu" onclick="redirectToExcel('ITAIPU')">ITAIPU</div>
+    <div class="bairro-item setor-tocantins" onclick="redirectToExcel('SETOR TOCANTINS')">SETOR TOCANTINS</div>
+</main>
+
+<script>
+    function redirectToExcel(bairro) {
+        var excelUrl;
+
+        switch (bairro) {
+            case 'MARACANÃ':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1K3l7N9aeuUYPchL50iOwO2lNjRGL0y2Y1AlX8t6remc/edit?usp=sharing';
+                break;
+            case 'ARAGUAÍNA SUL 2':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1XPstf1RhD4JZ9fcX63Satk4i_AbyudRkxYTT1yq0ELM/edit?usp=sharing';
+                break;
+            case 'SETOR LULA':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1HwG_6PWWKWlnQRfRn5agFOB_LOvgzsLFalhHckATUBU/edit?usp=sharing';
+                break;
+            case 'LAGO AZUL':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/10SBymm93b4rmqLW7GKNngQUQ4baTi_79zC_hH208jJM/edit?usp=sharing';
+                break;
+            case 'LAGO AZUL 4':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1DB5NGd2MlvsVMYI42cn6GGkbKf407mfoxe4fYvf0QB8/edit?usp=sharing';
+                break;
+            case 'VILA RIBEIRO':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1VyG3kkcGenZhmIBdbGZF_b_LEd5MnsQSCkbnpUK18Rk/edit?usp=sharing';
+                break;
+            case 'COSTA ESMERALDA':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/18cQ1-kHMHkAepZ_r7BlfL6N-SQEXzgfzwj4FM3nCMBU/edit?usp=sharing';
+                break;
+            case 'C. SONHO':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1BmGGhm1qcmqudvK6VcwpHI3rpcPg5-Kcw5euNKJZrao/edit?usp=sharing';
+                break;
+            case 'SONHOS DOURADOS':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1ZISha7tCVMH0BlkmXZGSpGKnOVQz7rtXvadperkj44g/edit?usp=sharing';
+                break;
+            case 'CENTRO':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1p7pK1MOB6J2G-y-m5YKrIpBiLZlV4koLceexak3q5X8/edit?usp=sharing';
+                break;
+            case 'SÃO JOÃO':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1OJukKl1FBTj8Ggpmx3gQigE-5MEJ7Ywu9hBnoZ5p7_0/edit?usp=sharing';
+                break;
+            case 'CÉU AZUL':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1auoXML5u5Dt3I08JzaQ5Vg58cbeZWslTgk1yCZYc1v8/edit?usp=sharing';
+                break;
+            case 'ENTRONCAMENTO':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1dN63L_ZzkXFsINjDxn_vCa9LZQL6dy2eBsJReYGXmEk/edit?usp=sharing';
+                break;
+            case 'NOVO ARAGUAÍNA':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/17vUylalXxQVxNIulTOcAlFxvuaXTwVpL_TpeHBO1ZUo/edit?usp=sharing';
+                break;
+            case 'SETOR BRASIL':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1icr3JImuL3SzLFcwbPtiv2rUxEkd6V6-MuSVjOq5U4o/edit?usp=sharing';
+                break;
+            case 'COIMBRA':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1o2R5eZAQZDGxIGurpNVlPIr-6RI2ztmLOZbso7c2wHw/edit?usp=sharing';
+                break;
+            case 'PATROCÍNIO':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/10_O55q4ksgE3-zqR5SgYRyqVkVqVeFqhXYYrCFpk_74/edit?usp=sharing';
+                break;
+            // URLs para os novos bairros
+            case 'PLANALTO':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1lUIAcA4TChkAvXORPlSuCukmeTn6hmJm0M407FD_lns/edit?usp=sharing';
+                break;
+            case 'VILA NORTE':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1Czs-f4yUO1nf26XJbGXkU34yM01K-hhWOuWBJ1GDg-c/edit?usp=sharing';
+                break;
+            case 'IPÊ':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/18e7BXUixJVVB0I8AOxxMSTlvNQkYmtQNFG0M5xYj950/edit?usp=sharingÊ';
+                break;
+            case 'JARDIM PAULISTA':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1XVDIMc7r3a_nuDj9KW2Z5EH52Jf5Zn12l2EElsQ8rM0/edit?usp=sharing';
+                break;
+            case 'BARRA DA GROTA':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1sy25_2gmAT_Rd06lZdXc-f8GD22RgLzKC7D6nDGXofE/edit?usp=sharing';
+                break;
+            case 'MORADA DO SOL':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1kmln7jwNVWyAT8bEs68eE99BBhTTW7Lqw7tXczVhHlI/edit?usp=sharing';
+                break;
+            case 'VILA COUTO':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1PhsYM4CF9eIdrdiWUJ9d4JrtpaZg2-9d28Yhzf2Wc3M/edit?usp=sharing';
+                break;
+            case 'ITAIPU':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1nOpsY1JF-tSaC_Y9dJW16bya6yPe0gzhbhvelZipCfY/edit?usp=sharing';
+                break;
+            case 'SETOR TOCANTINS':
+                excelUrl = 'https://docs.google.com/spreadsheets/d/1YlFTFvfSScidNiQDjpIZblSZJlyKmsQ7uxoXAKOemt4/edit?usp=sharing';
+                break;
+            default:
+                alert('URL do Excel não encontrado para este bairro.');
+                return;
+        }
+
+        // Redirecionar para a URL do Excel correspondente ao bairro selecionado
+        window.location.href = excelUrl;
+    }
+</script>
+</body>
+</html>

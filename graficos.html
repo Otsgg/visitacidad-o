@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisitaCidadão - Gráficos</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #003366;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        header img.logo {
+            width: 150px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            justify-content: center; /* Centraliza os elementos horizontalmente */
+            align-items: flex-start; /* Alinha os itens no início da linha (no topo) */
+            flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha */
+        }
+
+        .chart-container {
+            width: calc(50% - 20px); /* Define a largura de cada gráfico para ocupar metade do espaço disponível */
+            margin: 10px; /* Adiciona margem entre os gráficos */
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* Impede que o conteúdo transborde */
+        }
+
+        canvas {
+            width: 100% !important; /* Garante que o canvas ocupe toda a largura do contêiner */
+            height: auto !important; /* Permite que a altura se ajuste automaticamente */
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <img src="LOGO 2.png" alt="VisitaCidadão" class="logo">
+</header>
+
+<main>
+    <div class="chart-container">
+        <h1>Gráfico de Pizza</h1>
+        <canvas id="pieChart"></canvas>
+    </div>
+    <div class="chart-container">
+        <h1>Gráfico de Barras</h1>
+        <canvas id="barChart"></canvas>
+    </div>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', async function() {
+        const bairros = [
+            { nome: 'Maracanã', url: 'https://docs.google.com/spreadsheets/d/1K3l7N9aeuUYPchL50iOwO2lNjRGL0y2Y1AlX8t6remc/edit?usp=sharing' },
+            { nome: 'Araguaína Sul 2', url: 'https://docs.google.com/spreadsheets/d/1XPstf1RhD4JZ9fcX63Satk4i_AbyudRkxYTT1yq0ELM/edit?usp=sharing' },
+            { nome: 'Setor Lula', url: 'https://docs.google.com/spreadsheets/d/1HwG_6PWWKWlnQRfRn5agFOB_LOvgzsLFalhHckATUBU/edit?usp=sharing' },
+            { nome: 'Lago Azul', url: 'https://docs.google.com/spreadsheets/d/10SBymm93b4rmqLW7GKNngQUQ4baTi_79zC_hH208jJM/edit?usp=sharing' },
+            { nome: 'Lago Azul 4', url: 'https://docs.google.com/spreadsheets/d/1DB5NGd2MlvsVMYI42cn6GGkbKf407mfoxe4fYvf0QB8/edit?usp=sharing' },
+            { nome: 'Vila Ribeiro', url: 'https://docs.google.com/spreadsheets/d/1VyG3kkcGenZhmIBdbGZF_b_LEd5MnsQSCkbnpUK18Rk/edit?usp=sharing' },
+            { nome: 'Costa Esmeralda', url: 'https://docs.google.com/spreadsheets/d/18cQ1-kHMHkAepZ_r7BlfL6N-SQEXzgfzwj4FM3nCMBU/edit?usp=sharing' },
+            { nome: 'Construindo Sonho', url: 'https://docs.google.com/spreadsheets/d/1BmGGhm1qcmqudvK6VcwpHI3rpcPg5-Kcw5euNKJZrao/edit?usp=sharing' },
+            { nome: 'Sonhos Dourados', url: 'https://docs.google.com/spreadsheets/d/1ZISha7tCVMH0BlkmXZGSpGKnOVQz7rtXvadperkj44g/edit?usp=sharing' },
+            { nome: 'Centro', url: 'https://docs.google.com/spreadsheets/d/1p7pK1MOB6J2G-y-m5YKrIpBiLZlV4koLceexak3q5X8/edit?usp=sharing' },
+            { nome: 'São João', url: 'https://docs.google.com/spreadsheets/d/1OJukKl1FBTj8Ggpmx3gQigE-5MEJ7Ywu9hBnoZ5p7_0/edit?usp=sharing' },
+            { nome: 'Céu Azul', url: 'https://docs.google.com/spreadsheets/d/1auoXML5u5Dt3I08JzaQ5Vg58cbeZWslTgk1yCZYc1v8/edit?usp=sharing' },
+            { nome: 'Entroncamento', url: 'https://docs.google.com/spreadsheets/d/1dN63L_ZzkXFsINjDxn_vCa9LZQL6dy2eBsJReYGXmEk/edit?usp=sharing' },
+            { nome: 'Novo Araguaína', url: 'https://docs.google.com/spreadsheets/d/17vUylalXxQVxNIulTOcAlFxvuaXTwVpL_TpeHBO1ZUo/edit?usp=sharing' },
+            { nome: 'Setor Brasil', url: 'https://docs.google.com/spreadsheets/d/1icr3JImuL3SzLFcwbPtiv2rUxEkd6V6-MuSVjOq5U4o/edit?usp=sharing' },
+            { nome: 'Coimbra', url: 'https://docs.google.com/spreadsheets/d/1o2R5eZAQZDGxIGurpNVlPIr-6RI2ztmLOZbso7c2wHw/edit?usp=sharing' },
+            { nome: 'Patrocínio', url: 'https://docs.google.com/spreadsheets/d/10_O55q4ksgE3-zqR5SgYRyqVkVqVeFqhXYYrCFpk_74/edit?usp=sharing' },
+            { nome: 'Planalto', url: 'https://docs.google.com/spreadsheets/d/1lUIAcA4TChkAvXORPlSuCukmeTn6hmJm0M407FD_lns/edit?usp=sharing' },
+            { nome: 'Vila Norte', url: 'https://docs.google.com/spreadsheets/d/1Czs-f4yUO1nf26XJbGXkU34yM01K-hhWOuWBJ1GDg-c/edit?usp=sharing' },
+            { nome: 'Ipê', url: 'https://docs.google.com/spreadsheets/d/18e7BXUixJVVB0I8AOxxMSTlvNQkYmtQNFG0M5xYj950/edit?usp=sharing' },
+            { nome: 'Jardim Paulista', url: 'https://docs.google.com/spreadsheets/d/1XVDIMc7r3a_nuDj9KW2Z5EH52Jf5Zn12l2EElsQ8rM0/edit?usp=sharing' },
+            { nome: 'Barra da Grota', url: 'https://docs.google.com/spreadsheets/d/1sy25_2gmAT_Rd06lZdXc-f8GD22RgLzKC7D6nDGXofE/edit?usp=sharing' },
+            { nome: 'Morada do Sol', url: 'https://docs.google.com/spreadsheets/d/1kmln7jwNVWyAT8bEs68eE99BBhTTW7Lqw7tXczVhHlI/edit?usp=sharing' },
+            { nome: 'Vila Couto', url: 'https://docs.google.com/spreadsheets/d/1PhsYM4CF9eIdrdiWUJ9d4JrtpaZg2-9d28Yhzf2Wc3M/edit?usp=sharing' },
+            { nome: 'Itaipu', url: 'https://docs.google.com/spreadsheets/d/1nOpsY1JF-tSaC_Y9dJW16bya6yPe0gzhbhvelZipCfY/edit?usp=sharing' },
+            { nome: 'Setor Tocantins', url: 'https://docs.google.com/spreadsheets/d/1YlFTFvfSScidNiQDjpIZblSZJlyKmsQ7uxoXAKOemt4/edit?usp=sharing' }
+        ];
+
+        const pieChartCanvas = document.getElementById('pieChart').getContext('2d');
+        const barChartCanvas = document.getElementById('barChart').getContext('2d');
+
+        // Função para buscar os dados de votos para cada bairro
+        async function getVotosPorBairro() {
+            const votosPorBairro = [];
+
+            for (const bairro of bairros) {
+                const response = await fetch(bairro.url);
+                const text = await response.text();
+                const tableRows = new DOMParser().parseFromString(text, 'text/html').querySelectorAll('table tr');
+
+                let totalVotos = 0;
+                for (let i = 1; i < tableRows.length; i++) {
+                    const columns = tableRows[i].querySelectorAll('td');
+                    if (columns.length >= 4) {
+                        const votos = parseInt(columns[3].textContent.trim(), 10);
+                        totalVotos += votos;
+                    }
+                }
+
+                votosPorBairro.push({ nome: bairro.nome, votos: totalVotos });
+            }
+
+            return votosPorBairro;
+        }
+
+        // Renderizar gráfico de pizza e de barras
+        async function renderCharts() {
+            const votosPorBairro = await getVotosPorBairro();
+
+            // Ordenar por quantidade de votos (decrescente)
+            votosPorBairro.sort((a, b) => b.votos - a.votos);
+
+            // Gráfico de Pizza
+            new Chart(pieChartCanvas, {
+                type: 'pie',
+                data: {
+                    labels: votosPorBairro.map(bairro => bairro.nome),
+                    datasets: [{
+                        label: 'Votos por Bairro',
+                        data: votosPorBairro.map(bairro => bairro.votos),
+                        backgroundColor: votosPorBairro.map(() => getRandomColor())
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem, data) {
+                                    const label = data.labels[tooltipItem.index];
+                                    const value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                                    const total = data.datasets[0].data.reduce((acc, curr) => acc + curr);
+                                    const percentage = ((value / total) * 100).toFixed(2);
+                                    return `${label}: ${value} votos (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gráfico de Barras
+            new Chart(barChartCanvas, {
+                type: 'bar',
+                data: {
+                    labels: votosPorBairro.map(bairro => bairro.nome),
+                    datasets: [{
+                        label: 'Votos por Bairro',
+                        data: votosPorBairro.map(bairro => bairro.votos),
+                        backgroundColor: votosPorBairro.map(() => getRandomColor())
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Função auxiliar para gerar cores aleatórias
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Chamada para renderizar os gráficos
+        renderCharts();
+    });
+</script>
+</body>
+</html>

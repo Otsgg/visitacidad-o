@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisitaCidadão</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            /* Adicionando a imagem de fundo */
+            background-image: url('LOGO 1.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh; /* Garante que a imagem cubra toda a tela */
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        header {
+            background-color: #003366;
+            color: #fff;
+            padding: 10px 20px; /* Adicionei um espaço extra à esquerda e à direita para a logo */
+            text-align: center;
+            position: relative; /* Para posicionar a logo dentro do cabeçalho */
+        }
+
+        header .logo {
+            position: absolute;
+            left: 20px; /* Distância do lado esquerdo */
+            top: 50%; /* Centralizando verticalmente */
+            transform: translateY(-50%);
+            width: 150px; /* Aumentei a largura da logo */
+            height: auto;
+            cursor: pointer; /* Mudar o cursor para indicar que é clicável */
+        }
+
+        header nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        header nav ul li:last-child {
+            margin-right: 0;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 5px 10px;
+            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+            border-radius: 5px;
+        }
+
+        header nav ul li a:hover {
+            background-color: #fff;
+            color: #003366;
+            transform: translateY(-3px);
+        }
+
+        main {
+            padding: 20px 0;
+        }
+
+        .bairros {
+            /* Removendo largura máxima e centralização horizontal */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .bairro {
+            /* Removendo largura específica */
+            background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo cinza escuro semi-transparente */
+            color: #fff; /* Cor do texto */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 10px;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .bairro:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Cor de fundo cinza claro semi-transparente ao passar o mouse */
+            transform: scale(1.05);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .bairro h3 {
+            font-size: 16px;
+            margin-top: 0;
+        }
+
+        .bairro p {
+            margin: 0;
+        }
+
+        .footer {
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        #contato {
+            display: none; /* Escondendo a seção de contato */
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <!-- Adicionando o logotipo na barra de navegação -->
+        <img src="LOGO 2.png" alt="Logo VisitaCidadão" class="logo">
+        <nav>
+            <ul>
+                <li><a href="#">Início</a></li>
+                <!-- Atualizado para redirecionar para bairros.html -->
+                <li><a href="bairros.html">Bairros</a></li>
+                <li><a href="graficos.html">Gráficos</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <div class="bairros" id="bairros">
+            <!-- Bairros serão adicionados dinamicamente aqui -->
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <!-- Retirei o texto do rodapé -->
+    </div>
+</footer>
+
+</body>
+</html>
